@@ -13,8 +13,6 @@ My purpose for building this project was to learn how Django handles routing, te
 
 [Software Demo Video](https://youtu.be/2opZDohtT2E)
 
----
-
 # Web Pages
 
 **Login Page**  
