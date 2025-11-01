@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Details • File Vault{% endblock %}
+{% block content %}
+<h1>{{ doc.original_name }}</h1>
+<ul>
+  <li>Description: {{ doc.description|default:"(none)" }}</li>
+  <li>Type: {{ doc.content_type|default:"(unknown)" }}</li>
+  <li>Size: {{ doc.size_bytes }} bytes</li>
+  <li>Uploaded: {{ doc.uploaded_at }}</li>
+</ul>
+<p>
+  <a href="{% url 'download_file' doc.pk %}">Download</a>
+  <a href="{% url 'preview_file' doc.pk %}">Preview</a>
+</p>
+<form method="post" action="{% url 'delete_file' doc.pk %}">
+  {% csrf_token %}
+  <button class="danger">Delete</button>
+</form>
+{% endblock %}

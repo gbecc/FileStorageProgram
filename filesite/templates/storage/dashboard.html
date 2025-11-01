@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Your Files • File Vault{% endblock %}
+{% block content %}
+<h1>Your Files</h1>
+
+<form method="get" style="margin-bottom:1rem">
+  <input name="q" placeholder="search name/description" value="{{ q }}">
+  <button>Search</button>
+  <a href="{% url 'upload_file' %}">+ Upload</a>
+</form>
+
+<table>
+  <thead>
+    <tr><th>Name</th><th>Size</th><th>Type</th><th>Uploaded</th><th>Actions</th></tr>
+  </thead>
+  <tbody>
+    {% for d in docs %}
+      <tr>
+        <td><a href="{% url 'file_detail' d.pk %}">{{ d.original_name }}</a></td>
+        <td>{{ d.size_bytes }} B</td>
+        <td>{{ d.content_type|default:"(unknown)" }}</td>
+        <td>{{ d.uploaded_at }}</td>
+        <td>
+          <a href="{% url 'file_detail' d.pk %}">Details</a>
+          <a href="{% url 'preview_file' d.pk %}">Preview</a>
+          <a href="{% url 'download_file' d.pk %}">Download</a>
+        </td>
+      </tr>
+    {% empty %}
+      <tr><td colspan="5">No files yet.</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

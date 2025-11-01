@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+{% block title %}Preview • {{ doc.original_name }}{% endblock %}
+{% block content %}
+<h1>Preview: {{ doc.original_name }}</h1>
+
+{% if ctype|default:""|slice:":5" == "image" %}
+  <img src="{{ doc.file.url }}" alt="{{ doc.original_name }}" style="max-width:100%;height:auto" />
+
+{% elif ctype == "application/pdf" %}
+  <object data="{{ doc.file.url }}" type="application/pdf" width="100%" height="800">
+    <p>PDF preview not supported in this browser. <a href="{% url 'download_file' doc.pk %}">Download</a></p>
+  </object>
+
+{% elif ctype|default:""|slice:":5" == "audio" %}
+  <audio controls src="{{ doc.file.url }}" style="width:100%"></audio>
+
+{% elif ctype|default:""|slice:":5" == "video" %}
+  <video controls src="{{ doc.file.url }}" style="max-width:100%"></video>
+
+{# FIXED LINE ↓ (no startswith filter in Django templates) #}
+{% elif ctype|default:""|slice:":5" == "text/" and text_preview %}
+  <pre style="white-space:pre-wrap;word-wrap:break-word;border:1px solid #ddd;padding:1rem">
+{{ text_preview }}
+  </pre>
+
+{% else %}
+  <p>No inline preview available for this file type.</p>
+{% endif %}
+
+<p style="margin-top:1rem">
+  <a href="{% url 'download_file' doc.pk %}">Download</a> ·
+  <a href="{% url 'file_detail' doc.pk %}">Back to details</a>
+</p>
+{% endblock %}

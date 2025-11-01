@@ -1,0 +1,30 @@
+# --- Python / Django ---
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.so
+
+# Virtual environments (anywhere in this tree)
+**/.venv/
+**/venv/
+**/env/
+
+# Django runtime artifacts
+**/db.sqlite3
+**/media/
+**/staticfiles/
+*.log
+
+# Node (if you ever add front-end)
+**/node_modules/
+
+# Editors / IDE
+**/.vscode/
+**/.idea/
+*.code-workspace
+
+# OS junk
+**/.DS_Store
+**/Thumbs.db
+**/desktop.ini
